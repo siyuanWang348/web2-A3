@@ -45,6 +45,30 @@
       <p><strong>Ticket Price:</strong> ${{ event.ticket_price ?? 'N/A' }}</p>
 
       <button class="btn primary">Register</button>
+
+      <h3>Registrations ({{ event.registrations?.length || 0 }})</h3>
+      <table *ngIf="event.registrations?.length > 0" border="1" cellpadding="5">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Tickets</th>
+          <th>Notes</th>
+          <th>Registered At</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let reg of event.registrations">
+          <td>{{ reg.user_name }}</td>
+          <td>{{ reg.user_email }}</td>
+          <td>{{ reg.user_phone }}</td>
+          <td>{{ reg.tickets }}</td>
+          <td>{{ reg.notes }}</td>
+          <td>{{ reg.registered_at | date:'short' }}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

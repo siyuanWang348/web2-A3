@@ -40,12 +40,15 @@ app.get('/api/events', (req, res) => {
       AND e.event_date >= CURRENT_DATE()
     ORDER BY e.event_date ASC
   `;
-  
+
   handleQuery(res, eventQuery);
 });
 
 // 2. 活动详情接口 - 根据ID获取完整信息
 app.get('/api/events/:id', (req, res) => {
+  const eventId = req.params.id;
+
+  // 2.1 查询活动详情
   const detailQuery = `
     SELECT 
       e.*, 
@@ -59,18 +62,45 @@ app.get('/api/events/:id', (req, res) => {
     LEFT JOIN charity_organizations o ON e.org_id = o.org_id
     WHERE e.event_id = ?
   `;
-  
-  db.query(detailQuery, [req.params.id], (err, results) => {
+
+  db.query(detailQuery, [eventId], (err, results) => {
     if (err) {
       console.error('查询详情失败:', err);
       return res.status(500).json({ error: '获取详情出错' });
     }
-    
     if (results.length === 0) {
       return res.status(404).json({ error: '活动不存在' });
     }
-    
-    res.json(results[0]);
+
+    const event = results[0];
+
+    // 2.2 查询该活动的注册列表
+    const regQuery = `
+      SELECT 
+        registration_id,
+        user_name,
+        user_email,
+        user_phone,
+        tickets,
+        registered_at,
+        notes
+      FROM event_registrations
+      WHERE event_id = ?
+      ORDER BY registered_at ASC
+    `;
+
+    db.query(regQuery, [eventId], (regErr, regResults) => {
+      if (regErr) {
+        console.error('查询注册信息失败:', regErr);
+        return res.status(500).json({ error: '获取注册信息出错' });
+      }
+
+      // 组合返回 JSON
+      res.json({
+        ...event,
+        registrations: regResults // 注册列表放在 registrations 字段
+      });
+    });
   });
 });
 
@@ -103,12 +133,12 @@ app.get('/api/search', (req, res) => {
     searchQuery += ' AND DATE(e.event_date) = ?';
     queryParams.push(date);
   }
-  
+
   if (location) {
     searchQuery += ' AND e.location LIKE ?';
     queryParams.push(`%${location}%`);
   }
-  
+
   if (category_id) {
     searchQuery += ' AND e.category_id = ?';
     queryParams.push(category_id);
@@ -116,7 +146,7 @@ app.get('/api/search', (req, res) => {
 
   // 排序条件
   searchQuery += ' ORDER BY e.event_date ASC';
-  
+
   handleQuery(res, searchQuery, queryParams);
 });
 

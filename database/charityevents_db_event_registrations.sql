@@ -42,7 +42,7 @@ CREATE TABLE `event_registrations` (
 --
 
 LOCK TABLES `event_registrations` WRITE;
-/*!40000 ALTER TABLE `event_categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `event_registrations` DISABLE KEYS */;
 INSERT INTO `event_registrations` (event_id, user_name, user_email, user_phone, tickets, notes, registered_at) VALUES (1, 'Emma Thompson', 'emma.thompson@gmail.com', '+61 412 345 678', 2, 'Joining with my friend Lucy for the 5km run.', '2025-10-15 09:34:22'), (1, 'Liam Nguyen', 'liam.nguyen@outlook.com', '+61 430 998 122', 1, 'First time joining a charity marathon!', '2025-10-16 11:20:45'), (2, 'Sophie Tan', 'sophie.tan@yahoo.com', '+61 420 665 901', 3, 'Volunteering with my company team.', '2025-10-13 15:18:10'), (2, 'Michael Brown', 'michael.brown@gmail.com', '+61 403 222 119', 1, 'Looking forward to helping at the food stall.', '2025-10-14 10:55:39'), (3, 'Hiroshi Sato', 'hiroshi.sato@example.jp', '+81 80-1234-5678', 1, 'I love spending time with rescued animals.', '2025-10-10 13:12:00'), (3, 'Yuki Nakamura', 'yuki.nakamura@gmail.com', '+81 70-4567-8910', 2, 'Bringing my daughter along.', '2025-10-11 09:44:33'), (4, 'Rachel Lim', 'rachel.lim@singnet.sg', '+65 9102 3344', 1, 'Hope to make the beach a cleaner place!', '2025-10-12 08:20:15'), (4, 'Aaron Ong', 'aaron.ong@gmail.com', '+65 9234 8765', 2, 'Joining with my brother.', '2025-10-13 14:37:20'), (5, 'Chloe Wong', 'chloe.wong@yahoo.com', '+852 9123 4567', 1, 'I donate blood regularly.', '2025-10-11 16:12:58'), (6, 'Kenji Mori', 'kenji.mori@outlook.jp', '+81 90-9876-5432', 1, 'Visiting the nursing home as part of my volunteer club.', '2025-10-09 17:10:42');
 /*!40000 ALTER TABLE `event_registrations` ENABLE KEYS */;
 UNLOCK TABLES;

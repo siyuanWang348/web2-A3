@@ -314,3 +314,34 @@ footer {
   color: #888;
   border-top: 1px solid #eee;
 }
+
+/* 表格样式 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+table thead {
+  background-color: #3498db;
+  color: #fff;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* 鼠标悬停行高亮 */
+table tbody tr:hover {
+  background-color: #e6f0ff;
+  cursor: pointer;
+}
