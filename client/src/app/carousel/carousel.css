@@ -1,0 +1,174 @@
+/* 🌈 新版 Charity Events 轮播图样式 */
+
+/* 容器 */
+.carousel-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #fef6e4, #f9fafb);
+  margin: 30px auto;
+  max-width: 1300px;
+}
+
+/* 轮播区域 */
+.carousel-slides {
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+
+/* 单张幻灯片 */
+.carousel-slide {
+  min-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 图片 */
+.carousel-slide img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  transition: transform 5s ease;
+}
+
+/* 当图片在当前页时放大一点点 */
+.carousel-slide.active img {
+  transform: scale(1.05);
+}
+
+/* 渐变遮罩层，让文字更清晰 */
+.carousel-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.6));
+}
+
+/* 文字说明框 */
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  text-align: center;
+  color: #fff;
+  z-index: 5;
+  width: 80%;
+  max-width: 800px;
+  animation: fadeInUp 1s ease both;
+}
+
+/* 标题 */
+.carousel-caption h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+  color: #3c84d5;
+}
+
+/* 副标题 */
+.carousel-caption p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1rem;
+}
+
+/* 控制按钮 */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  color: #333;
+  font-size: 26px;
+  cursor: pointer;
+  padding: 12px 18px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
+
+.carousel-control:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.prev { left: 25px; }
+.next { right: 25px; }
+
+/* 指示点 */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 11;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.indicator.active {
+  background-color: #ffd972;
+  transform: scale(1.3);
+  box-shadow: 0 0 6px rgba(255, 220, 120, 0.8);
+}
+
+/* ✨ 动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -40%);
+  }
+}
+
+/* 📱 响应式 */
+@media (max-width: 992px) {
+  .carousel-slide img {
+    height: 420px;
+  }
+  .carousel-caption h2 {
+    font-size: 2rem;
+  }
+  .carousel-caption p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-slide img {
+    height: 320px;
+  }
+  .carousel-caption {
+    transform: translate(-50%, -45%);
+    width: 90%;
+  }
+  .carousel-caption h2 {
+    font-size: 1.4rem;
+  }
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+  .carousel-control {
+    font-size: 18px;
+    padding: 8px 10px;
+  }
+}

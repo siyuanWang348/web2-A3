@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import {Navbar} from '../navbar/navbar';
+import {Carousel} from '../carousel/carousel';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [Carousel, Navbar],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
