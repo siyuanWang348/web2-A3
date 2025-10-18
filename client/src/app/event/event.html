@@ -4,15 +4,49 @@
 <div class="container event-page">
   <h1>📌 Event Details</h1>
 
-  <!-- 手动输入ID调试工具 -->
-  <div id="manualIdEntry" class="manual-entry">
+  <!-- 手动输入ID调试 -->
+  <div class="manual-entry" *ngIf="!event && !error">
     <p><strong>Debug Tool:</strong> If event details don't load automatically, enter event ID manually:</p>
-    <input type="number" id="manualId" placeholder="Enter event ID">
-    <button class="btn secondary" onclick="loadEventWithId()">Load Event</button>
+    <input type="number" #manualId placeholder="Enter event ID">
+    <button class="btn secondary" (click)="loadEventByManualId(manualId)">Load Event</button>
   </div>
 
-  <!-- 事件详情展示区域 -->
-  <div id="eventDetails" class="detail-card"></div>
+  <!-- 错误显示 -->
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- 加载成功 -->
+  <div *ngIf="event" class="detail-card">
+    <div class="event-card">
+      <h2>{{ event.title || 'N/A' }}</h2>
+
+      <div class="event-info">
+        <p><strong>Date:</strong> {{ formatDate(event.event_date) }}</p>
+        <p><strong>Location:</strong> {{ event.location || 'N/A' }}</p>
+        <p><strong>Category:</strong> {{ event.category_name || 'N/A' }}</p>
+        <p><strong>Organization:</strong> {{ event.org_name || 'N/A' }}</p>
+        <p><strong>Contact:</strong> {{ event.contact_email || 'N/A' }}, {{ event.contact_phone || 'N/A' }}</p>
+      </div>
+
+      <p class="desc">{{ event.description || 'N/A' }}</p>
+
+      <div class="goal-section">
+        <p>
+          <strong>🎯 Goal:</strong> ${{ event.charity_goal ?? 'N/A' }} |
+          <strong>Progress:</strong> ${{ event.current_progress ?? 'N/A' }}
+        </p>
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            [style.width.%]="calculateProgress(event.current_progress, event.charity_goal)"
+          ></div>
+        </div>
+      </div>
+
+      <p><strong>Ticket Price:</strong> ${{ event.ticket_price ?? 'N/A' }}</p>
+
+      <button class="btn primary">Register</button>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>

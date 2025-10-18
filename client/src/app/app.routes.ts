@@ -13,7 +13,7 @@ export const routes: Routes = [
     component: Search
   },
   {
-    path: 'event/:id',
+    path: 'event',
     component: Event
   }
 ];
