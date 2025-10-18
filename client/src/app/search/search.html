@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<!-- 主内容区 -->
+<div class="container">
+  <h1>🔎 Search Events</h1>
+
+  <!-- 搜索表单 -->
+  <form id="searchForm" class="search-form">
+    <div class="form-group">
+      <label>
+        Date:
+        <input type="date" id="date" lang="en">
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Location:
+        <input type="text" id="location" placeholder="Enter location">
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Category:
+        <select id="category">
+          <option value="">-- All --</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-search">Search</button>
+      <button type="button" class="btn btn-clear" onclick="clearFilters()">Clear</button>
+    </div>
+  </form>
+
+  <!-- 错误提示区域 -->
+  <div id="errorMessages" class="error-messages"></div>
+
+  <!-- 搜索结果区域 -->
+  <h2>Results</h2>
+  <div id="results" class="events-grid"></div>
+</div>
