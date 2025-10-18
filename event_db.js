@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 const connectionConfig = {
   host: 'localhost',
   user: 'root',
-  password: 'wsy20030313.',
+  password: '123456',
   database: 'charityevents_db'
 };
 
@@ -17,7 +17,7 @@ dbConnection.connect((error) => {
     console.error('数据库连接失败:', error.stack);
     return;
   }
-  console.log(`✅ MySQL 已连接，连接ID: ${dbConnection.threadId}`);
+  console.log(`MySQL 已连接，连接ID: ${dbConnection.threadId}`);
 });
 
 module.exports = dbConnection;

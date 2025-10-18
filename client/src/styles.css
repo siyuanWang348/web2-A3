@@ -1,0 +1,492 @@
+/* You can add global styles to this file, and also import other style files */
+/* 全局样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  line-height: 1.6;
+  color: #2c3e50;
+  background-color: #f4f7fb; /* 柔和浅蓝背景 */
+  padding-bottom: 50px;
+}
+
+/* 导航栏 */
+.navbar {
+  background-color: #3498db; /* 蓝色主色调 */
+  color: white;
+  padding: 1rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 2rem;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  border-bottom: 2px solid #e6ebe8;
+}
+
+/* 头部图片 */
+.header-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  margin-bottom: 2rem;
+}
+
+/* 容器样式 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+/* 标题样式 */
+h1, h2 {
+  color: #2c3e50; /* 深蓝灰标题 */
+  margin: 1.5rem 0;
+  border-bottom: 1px solid #d6eaf8; /* 浅蓝下划线 */
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* 机构信息区域 */
+.org-info {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  border-top: 4px solid #76a5d4; /* 绿色顶部边框 */
+}
+
+.org-info p {
+  margin: 0.8rem 0;
+}
+
+/* 活动卡片样式 */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.event-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  border-left: 4px solid #3498db; /* 蓝色左侧边框 */
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.event-card h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.event-card p {
+  color: #555;
+  margin: 0.5rem 0;
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: #ffc94d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color:#f7a41b;
+}
+
+
+/* 详情页样式 */
+.detail-card {
+  background-color:  #dddbdb;;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.detail-card p {
+  margin: 1rem 0;
+  line-height: 1.8;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #86eab2; /* 绿色进度条 */
+  transition: width 1s ease-in-out;
+}
+
+/* 弹窗样式 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #555;;
+  margin: 15% auto;
+  padding: 2rem;
+  width: 60%;
+  max-width: 500px;
+  border-radius: 8px;
+  position: relative;
+  border-top: 4px solid #3498db; /* 蓝色顶部边框 */
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #e74c3c;
+}
+
+/* 错误提示样式 */
+.error {
+  color: #e74c3c;
+  font-weight: bold;
+  padding: 1rem;
+  background-color: #fadbd8;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+/* 成功提示样式 */
+.success {
+  color: #27ae60;
+  font-weight: bold;
+  padding: 1rem;
+  background-color: #d4efdf;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+
+/* 🌈 新版 Charity Events 轮播图样式 */
+
+/* 容器 */
+.carousel-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #fef6e4, #f9fafb);
+  margin: 30px auto;
+  max-width: 1300px;
+}
+
+/* 轮播区域 */
+.carousel-slides {
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+
+/* 单张幻灯片 */
+.carousel-slide {
+  min-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 图片 */
+.carousel-slide img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  transition: transform 5s ease;
+}
+
+/* 当图片在当前页时放大一点点 */
+.carousel-slide.active img {
+  transform: scale(1.05);
+}
+
+/* 渐变遮罩层，让文字更清晰 */
+.carousel-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.6));
+}
+
+/* 文字说明框 */
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  text-align: center;
+  color: #fff;
+  z-index: 5;
+  width: 80%;
+  max-width: 800px;
+  animation: fadeInUp 1s ease both;
+}
+
+/* 标题 */
+.carousel-caption h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+  color: #3c84d5;
+}
+
+/* 副标题 */
+.carousel-caption p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1rem;
+}
+
+/* 控制按钮 */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  color: #333;
+  font-size: 26px;
+  cursor: pointer;
+  padding: 12px 18px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
+
+.carousel-control:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.prev { left: 25px; }
+.next { right: 25px; }
+
+/* 指示点 */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 11;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.indicator.active {
+  background-color: #ffd972;
+  transform: scale(1.3);
+  box-shadow: 0 0 6px rgba(255, 220, 120, 0.8);
+}
+
+/* ✨ 动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -40%);
+  }
+}
+
+/* 📱 响应式 */
+@media (max-width: 992px) {
+  .carousel-slide img {
+    height: 420px;
+  }
+  .carousel-caption h2 {
+    font-size: 2rem;
+  }
+  .carousel-caption p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-slide img {
+    height: 320px;
+  }
+  .carousel-caption {
+    transform: translate(-50%, -45%);
+    width: 90%;
+  }
+  .carousel-caption h2 {
+    font-size: 1.4rem;
+  }
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+  .carousel-control {
+    font-size: 18px;
+    padding: 8px 10px;
+  }
+}
+
+
+.container {
+  max-width: 1300px;      /* 与轮播图一致 */
+  margin: 0 auto;         /* 居中 */
+  padding: 2rem 3rem;     /* 上下留白更舒适 */
+  background: #dbdada;       /* 白色背景卡片效果 */
+  border-radius: 18px;    /* 与轮播图圆角一致 */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* 每个 section 的间距 */
+.org-info,
+.events-section {
+  margin-bottom: 3rem;
+}
+
+/* 标题层次优化 */
+.org-info h1,
+.events-section h2 {
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.org-info p,
+.events-section p {
+  text-align: center;
+  color: #555;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0.5rem auto 1.5rem auto;
+}
+
+/* 活动卡片网格布局（宽度与内容区匹配） */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+/* 活动卡片样式 */
+.event-card {
+  background: #fdfdfd;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 100%;
+  max-width: 380px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.event-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.event-card h3 {
+  margin: 0.8rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.event-card p {
+  margin: 0.4rem 0.8rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+
+.event-card .btn {
+  display: inline-block;
+  margin: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f9b233, #ffd36b);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.event-card .btn:hover {
+  background: linear-gradient(135deg, #f7a41b, #ffc94d);
+}
+
+/* 页脚与主体间距 */
+footer {
+  max-width: 1300px;
+  margin: 2rem auto 0 auto;
+  padding: 1.5rem;
+  text-align: center;
+  color: #888;
+  border-top: 1px solid #eee;
+}
