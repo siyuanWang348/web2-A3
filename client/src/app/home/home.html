@@ -28,14 +28,36 @@
   <section class="events-section upcoming-events">
     <h2>🌈 Upcoming Events</h2>
     <p>Discover upcoming charity events and make an impact today!</p>
-    <div id="upcoming-events" class="events-grid"></div>
+    <div id="upcoming-events" class="events-grid">
+      <div *ngIf="upcomingEvents.length === 0">No upcoming events available.</div>
+      <div *ngFor="let event of upcomingEvents" class="event-card upcoming">
+        <img *ngIf="event.image_url" [src]="event.image_url" [alt]="event.title" class="event-image">
+        <div class="event-status upcoming">Upcoming</div>
+        <h3>{{ event.title }}</h3>
+        <p>📅 {{ event.event_date | date:'medium' }}</p>
+        <p>📍 {{ event.location }}</p>
+        <p>🏷️ {{ event.category_name || 'Uncategorized' }} | Organized by {{ event.org_name || 'Unknown Organization' }}</p>
+        <a [routerLink]="['/event']" [queryParams]="{ event_id: event.event_id }" class="btn">🔍 View Details</a>
+      </div>
+    </div>
   </section>
 
   <!-- 过去的活动 -->
   <section class="events-section past-events">
     <h2>🌿 Past Charity Events</h2>
     <p>See what we’ve accomplished together in the past.</p>
-    <div id="past-events" class="events-grid"></div>
+    <div id="past-events" class="events-grid">
+      <div *ngIf="pastEvents.length === 0">No past events recorded.</div>
+      <div *ngFor="let event of pastEvents" class="event-card past">
+        <img *ngIf="event.image_url" [src]="event.image_url" [alt]="event.title" class="event-image">
+        <div class="event-status past">Past</div>
+        <h3>{{ event.title }}</h3>
+        <p>📅 {{ event.event_date | date:'medium' }}</p>
+        <p>📍 {{ event.location }}</p>
+        <p>🏷️ {{ event.category_name || 'Uncategorized' }} | Organized by {{ event.org_name || 'Unknown Organization' }}</p>
+        <a [routerLink]="['/event']" [queryParams]="{ event_id: event.event_id }" class="btn">🔍 View Details</a>
+      </div>
+    </div>
   </section>
 </main>
 
