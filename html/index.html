@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Events - Home</title>
+  <!-- 样式表引用 -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/carousel.css">
+  <link rel="stylesheet" href="/css/theme.css">
+</head>
+
+<body>
+  <!-- 顶部导航栏 -->
+  <nav class="navbar">
+    <div class="logo">🌍 Charity Events</div>
+    <div class="nav-links">
+      <a href="/" class="active">Home</a>
+      <a href="/search">Search Events</a>
+    </div>
+  </nav>
+
+  <!-- 轮播图区域 -->
+  <section class="carousel-container">
+    <div class="carousel-slides">
+      <div class="carousel-slide">
+        <img src="/images/1.jpg" alt="Charity event 1">
+        <div class="carousel-caption">
+          <h2>Join Hands for a Better World</h2>
+          <p>Together, we can make a difference.</p>
+        </div>
+      </div>
+      
+      <div class="carousel-slide">
+        <img src="/images/2.jpg" alt="Charity event 2">
+        <div class="carousel-caption">
+          <h2>Support Education & Hope</h2>
+          <p>Help children access quality learning opportunities.</p>
+        </div>
+      </div>
+      
+      <div class="carousel-slide">
+        <img src="/images/3.jpg" alt="Charity event 3">
+        <div class="carousel-caption">
+          <h2>Assisting the people affected by the disaster</h2>
+          <p>Our Shared Mission to Assist</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 轮播控制按钮 -->
+    <button class="carousel-control prev">❮</button>
+    <button class="carousel-control next">❯</button>
+    
+    <!-- 轮播指示器 -->
+    <div class="carousel-indicators">
+      <div class="indicator active" data-index="0"></div>
+      <div class="indicator" data-index="1"></div>
+      <div class="indicator" data-index="2"></div>
+    </div>
+  </section>
+
+  <!-- 主内容区 -->
+  <main class="container">
+    <!-- 组织信息 -->
+    <section class="org-info">
+      <h1>Welcome to Charity Events</h1>
+      <p>
+        We connect you with meaningful charity events in your city.  
+        Join us to support education, healthcare, and the environment.
+      </p>
+
+      <h2>Our Mission</h2>
+      <p>
+        Our mission is to create a world where everyone can easily participate in charitable
+        activities — fostering community spirit and driving positive social change.
+      </p>
+
+      <h2>Contact Us</h2>
+      <p>📧 <strong>Email:</strong> sherryWang@163.com</p>
+      <p>📞 <strong>Phone:</strong> 13113560313</p>
+      <p>🏢 <strong>Address:</strong> Wenchang Campus of Guangxi University of Science and Technology</p>
+    </section>
+
+    <!-- 即将到来的活动 -->
+    <section class="events-section upcoming-events">
+      <h2>🌈 Upcoming Events</h2>
+      <p>Discover upcoming charity events and make an impact today!</p>
+      <div id="upcoming-events" class="events-grid"></div>
+    </section>
+
+    <!-- 过去的活动 -->
+    <section class="events-section past-events">
+      <h2>🌿 Past Charity Events</h2>
+      <p>See what we’ve accomplished together in the past.</p>
+      <div id="past-events" class="events-grid"></div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer style="text-align:center; padding:2rem 0; color:#888;">
+    © 2025 Charity Events | Made with ❤️ to make the world better
+  </footer>
+
+  <!-- 引入首页功能脚本 -->
+  <script src="/js/index.js"></script>
+</body>
+</html>
