@@ -4,10 +4,11 @@ import {Carousel} from '../carousel/carousel';
 import {HttpClient} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {Footer} from '../footer/footer';
 
 @Component({
   selector: 'app-home',
-  imports: [Carousel, Navbar, CommonModule, RouterModule],
+  imports: [Carousel, Navbar, CommonModule, RouterModule, Footer],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

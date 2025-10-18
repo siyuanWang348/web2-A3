@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {Navbar} from '../navbar/navbar';
+import {Footer} from '../footer/footer';
 
 @Component({
   selector: 'app-search',
-  imports: [Navbar],
+  imports: [Navbar, Footer],
   templateUrl: './search.html',
   styleUrl: './search.css'
 })

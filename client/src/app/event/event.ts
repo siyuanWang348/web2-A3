@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {Navbar} from '../navbar/navbar';
+import {Footer} from '../footer/footer';
 
 @Component({
   selector: 'app-event',
-  imports: [Navbar],
+  imports: [Navbar, Footer],
   templateUrl: './event.html',
   styleUrl: './event.css'
 })
