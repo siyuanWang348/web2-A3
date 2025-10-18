@@ -2,7 +2,7 @@
 <nav class="navbar">
   <div class="logo">🌍 Charity Events</div>
   <div class="nav-links">
-    <a href="/" class="active">Home</a>
-    <a href="/search">Search Events</a>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/search" routerLinkActive="active">Search Events</a>
   </div>
 </nav>

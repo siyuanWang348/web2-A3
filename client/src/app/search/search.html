@@ -5,42 +5,57 @@
   <h1>🔎 Search Events</h1>
 
   <!-- 搜索表单 -->
-  <form id="searchForm" class="search-form">
+  <form (ngSubmit)="handleSearch()" class="search-form">
     <div class="form-group">
       <label>
         Date:
-        <input type="date" id="date" lang="en">
+        <input type="date" [(ngModel)]="filters.date" name="date">
       </label>
     </div>
 
     <div class="form-group">
       <label>
         Location:
-        <input type="text" id="location" placeholder="Enter location">
+        <input type="text" [(ngModel)]="filters.location" name="location" placeholder="Enter location">
       </label>
     </div>
 
     <div class="form-group">
       <label>
         Category:
-        <select id="category">
+        <select [(ngModel)]="filters.category_id" name="category">
           <option value="">-- All --</option>
+          <option *ngFor="let category of categories" [value]="category.category_id">
+            {{ category.category_name }}
+          </option>
         </select>
       </label>
     </div>
 
     <div class="form-buttons">
       <button type="submit" class="btn btn-search">Search</button>
-      <button type="button" class="btn btn-clear" onclick="clearFilters()">Clear</button>
+      <button type="button" class="btn btn-clear" (click)="clearFilters()">Clear</button>
     </div>
   </form>
 
   <!-- 错误提示区域 -->
-  <div id="errorMessages" class="error-messages"></div>
+  <div *ngIf="errorMessage" class="error-messages">{{ errorMessage }}</div>
 
   <!-- 搜索结果区域 -->
   <h2>Results</h2>
-  <div id="results" class="events-grid"></div>
+  <div class="events-grid">
+    <div *ngIf="results.length === 0 && !loading">No events found.</div>
+
+    <div *ngIf="loading" class="loading">Loading...</div>
+
+    <div *ngFor="let event of results" class="event-card">
+      <h3><a [routerLink]="['/event']" [queryParams]="{ event_id: event.event_id }">{{ event.title }}</a></h3>
+      <p class="event-date">📅 {{ event.event_date | date:'MMM d, y, h:mm a' }}</p>
+      <p>📍 {{ event.location }}</p>
+      <p>🏷️ {{ event.category_name }} | Org: {{ event.org_name }}</p>
+      <button class="btn" (click)="viewEvent(event.event_id)">🔍 View Details</button>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>
