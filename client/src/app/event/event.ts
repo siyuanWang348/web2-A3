@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Navbar} from '../navbar/navbar';
 import {Footer} from '../footer/footer';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 
@@ -16,7 +16,7 @@ export class Event implements OnInit {
   eventId: string | null = null;
   error: string | null = null;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     // 从URL参数获取event_id
@@ -63,5 +63,10 @@ export class Event implements OnInit {
         this.error = 'Error loading event details.';
       }
     });
+  }
+
+  // 跳转到注册页面
+  register() {
+    this.router.navigate(['event-registration'], { queryParams: { event_id: this.event.event_id } })
   }
 }

@@ -150,6 +150,47 @@ app.get('/api/search', (req, res) => {
   handleQuery(res, searchQuery, queryParams);
 });
 
+// 添加注册接口
+app.post('/api/events/:id/register', (req, res) => {
+  const eventId = req.params.id;
+  const { user_name, user_email, user_phone, tickets, notes } = req.body;
+
+  if (!user_name || !user_email || !tickets) {
+    return res.status(400).json({
+      error: 'Name, email, and ticket count are required.'
+    });
+  }
+
+  // 1. 先检查该用户是否已注册这个活动
+  const checkQuery = `SELECT * FROM event_registrations WHERE event_id = ? AND user_email = ?`;
+  db.query(checkQuery, [eventId, user_email], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (results.length > 0) {
+      return res.status(400).json({
+        error: 'You have already registered for this event.'
+      });
+    }
+
+    // 2. 插入注册记录
+    const insertQuery = `
+      INSERT INTO event_registrations 
+      (event_id, user_name, user_email, user_phone, tickets, notes, registered_at) 
+      VALUES (?, ?, ?, ?, ?, ?, NOW())
+    `;
+    db.query(insertQuery, [eventId, user_name, user_email, user_phone, tickets, notes], (err2, results2) => {
+      if (err2) {
+        return res.status(500).json({ error: 'Failed to register' });
+      }
+      res.json({
+        success: true,
+        registration_id: results2.insertId
+      });
+    });
+  });
+});
+
 // 启动服务器
 app.listen(serverPort, () => {
   console.log(`服务器已启动，运行在 http://localhost:${serverPort}`);
