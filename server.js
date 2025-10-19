@@ -191,6 +191,100 @@ app.post('/api/events/:id/register', (req, res) => {
   });
 });
 
+
+// 添加活动类别接口
+app.post('/api/categories', (req, res) => {
+  const { category_name, description } = req.body;
+
+  if (!category_name) {
+    return res.status(400).json({ error: 'Category name is required.' });
+  }
+
+  const insertQuery = `
+    INSERT INTO event_categories (category_name, description)
+    VALUES (?, ?)
+  `;
+  db.query(insertQuery, [category_name, description || null], (err, results) => {
+    if (err) {
+      console.error('添加类别失败:', err);
+      return res.status(500).json({ error: 'Failed to add category.' });
+    }
+    res.json({
+      success: true,
+      message: 'Category added successfully.',
+      category_id: results.insertId
+    });
+  });
+});
+
+
+// 更新活动类别接口
+app.put('/api/categories/:id', (req, res) => {
+  const categoryId = req.params.id;
+  const { category_name, description } = req.body;
+
+  if (!category_name) {
+    return res.status(400).json({ error: 'Category name is required.' });
+  }
+
+  const updateQuery = `
+    UPDATE event_categories
+    SET category_name = ?, description = ?
+    WHERE category_id = ?
+  `;
+  db.query(updateQuery, [category_name, description || null, categoryId], (err, results) => {
+    if (err) {
+      console.error('更新类别失败:', err);
+      return res.status(500).json({ error: 'Failed to update category.' });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: 'Category not found.' });
+    }
+
+    res.json({
+      success: true,
+      message: 'Category updated successfully.'
+    });
+  });
+});
+
+
+// 删除活动类别接口
+app.delete('/api/categories/:id', (req, res) => {
+  const categoryId = req.params.id;
+
+  // 防止删除有绑定活动的类别
+  const checkQuery = `
+    SELECT COUNT(*) AS count FROM charity_events WHERE category_id = ?
+  `;
+  db.query(checkQuery, [categoryId], (err, results) => {
+    if (err) {
+      console.error('检查关联活动失败:', err);
+      return res.status(500).json({ error: 'Failed to check related events.' });
+    }
+
+    if (results[0].count > 0) {
+      return res.status(400).json({
+        error: 'Cannot delete category that is linked to existing events.'
+      });
+    }
+
+    const deleteQuery = `DELETE FROM event_categories WHERE category_id = ?`;
+    db.query(deleteQuery, [categoryId], (delErr, delResults) => {
+      if (delErr) {
+        console.error('删除类别失败:', delErr);
+        return res.status(500).json({ error: 'Failed to delete category.' });
+      }
+
+      res.json({
+        success: true,
+        message: 'Category deleted successfully.'
+      });
+    });
+  });
+});
+
 // 启动服务器
 app.listen(serverPort, () => {
   console.log(`服务器已启动，运行在 http://localhost:${serverPort}`);
