@@ -1,1 +1,39 @@
-<p>registrations works!</p>
+<app-navbar></app-navbar>
+
+<div class="container registrations-container">
+  <h2>Manage Registrations</h2>
+
+  <!-- 表格 -->
+  <table class="registrations-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Event</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Tickets</th>
+      <th>Notes</th>
+      <th>Registered At</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let r of registrations">
+      <td>{{ r.registration_id }}</td>
+      <td>{{ r.event_title }}</td>
+      <td>{{ r.user_name }}</td>
+      <td>{{ r.user_email }}</td>
+      <td>{{ r.user_phone }}</td>
+      <td>{{ r.tickets }}</td>
+      <td>{{ r.notes }}</td>
+      <td>{{ r.registered_at | date:'short' }}</td>
+      <td>
+        <button (click)="deleteRegistration(r.registration_id)" class="btn delete-btn">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-footer></app-footer>

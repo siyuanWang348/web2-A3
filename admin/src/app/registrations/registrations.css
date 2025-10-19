@@ -1,0 +1,37 @@
+.registrations-container {
+  margin-top: 20px;
+}
+
+.add-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.add-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background-color: #db3434;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #b92929;
+  transform: translateY(-2px);
+}
+
+input, select, textarea {
+  padding: 10px 14px;
+  border: 1px solid #dce1e8;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
