@@ -16,6 +16,9 @@ export class Event implements OnInit {
   eventId: string | null = null;
   error: string | null = null;
 
+  // 天气信息
+  weather: any = null;
+
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
@@ -56,11 +59,37 @@ export class Event implements OnInit {
       next: (res) => {
         this.event = res;
         this.error = null;
+
+        // 获取天气信息
+        if (this.event.latitude && this.event.longitude) {
+          this.fetchWeather(this.event.latitude, this.event.longitude);
+        }
       },
       error: (err) => {
         console.error('Error loading event details:', err);
         this.event = null;
         this.error = 'Error loading event details.';
+      }
+    });
+  }
+
+  // 获取天气
+  fetchWeather(lat: number, lon: number) {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Australia/Sydney`;
+    this.http.get(url).subscribe({
+      next: (res: any) => {
+        // 我们只取当天数据
+        if (res.daily && res.daily.time && res.daily.time.length > 0) {
+          this.weather = {
+            date: res.daily.time[0],
+            temp_max: res.daily.temperature_2m_max[0],
+            temp_min: res.daily.temperature_2m_min[0]
+          };
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching weather:', err);
+        this.weather = null;
       }
     });
   }

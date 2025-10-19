@@ -17,6 +17,14 @@
   <!-- 加载成功 -->
   <div *ngIf="event" class="detail-card">
     <div class="event-card">
+      <!-- 天气信息 -->
+      <div *ngIf="weather" class="weather-section">
+        <h3>🌤️ Weather Forecast for {{ weather.date }}</h3>
+        <p>
+          Max: {{ weather.temp_max }}°C | Min: {{ weather.temp_min }}°C
+        </p>
+      </div>
+
       <h2>{{ event.title || 'N/A' }}</h2>
 
       <div class="event-info">
