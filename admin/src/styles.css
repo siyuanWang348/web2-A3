@@ -162,7 +162,7 @@ h1, h2 {
 
 /* 弹窗样式 */
 .modal {
-  display: none;
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -173,7 +173,7 @@ h1, h2 {
 }
 
 .modal-content {
-  background-color: #555;;
+  background-color: #ffffff;
   margin: 15% auto;
   padding: 2rem;
   width: 60%;
@@ -181,6 +181,18 @@ h1, h2 {
   border-radius: 8px;
   position: relative;
   border-top: 4px solid #3498db; /* 蓝色顶部边框 */
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
 }
 
 .close-modal {

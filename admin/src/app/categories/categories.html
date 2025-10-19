@@ -1,1 +1,60 @@
-<p>categories works!</p>
+<app-navbar></app-navbar>
+
+<div class="container categories-container">
+  <h2>Manage Categories</h2>
+
+  <!-- 添加按钮 -->
+  <button class="btn add-btn" (click)="openAddModal()">Add Category</button>
+
+  <!-- 表格 -->
+  <table class="categories-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let category of categories">
+      <td>{{ category.category_id }}</td>
+      <td>{{ category.category_name }}</td>
+      <td>{{ category.description }}</td>
+      <td>
+        <button (click)="openEditModal(category)" class="btn" style="margin-right: 10px;">Edit</button>
+        <button (click)="deleteCategory(category.category_id)" class="btn delete-btn">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>{{ modalMode === 'add' ? 'Add Category' : 'Edit Category' }}</h3>
+
+    <div class="modal-body">
+      <div class="modal-input">
+        <label>Name:</label>
+        <input type="text" [(ngModel)]="currentCategory.category_name" placeholder="Enter category name" />
+      </div>
+
+      <div class="modal-input">
+        <label>Description:</label>
+        <textarea [(ngModel)]="currentCategory.description" placeholder="Enter description"></textarea>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error">{{error}}</div>
+
+    <div class="modal-actions">
+      <button class="btn add-btn" (click)="saveCategory()">Save</button>
+      <button class="btn" (click)="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>
