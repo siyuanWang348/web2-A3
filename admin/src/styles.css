@@ -178,9 +178,11 @@ h1, h2 {
   padding: 2rem;
   width: 60%;
   max-width: 500px;
+  max-height: 700px;
   border-radius: 8px;
   position: relative;
   border-top: 4px solid #3498db; /* 蓝色顶部边框 */
+  overflow-y: auto;
 }
 
 .modal-actions {

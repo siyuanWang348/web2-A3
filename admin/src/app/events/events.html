@@ -1,3 +1,136 @@
 <app-navbar></app-navbar>
 
+<div class="container events-container">
+  <h2>Manage Events</h2>
+
+  <!-- 添加按钮 -->
+  <button class="btn add-btn" (click)="openAddModal()">Add Event</button>
+
+  <!-- 表格 -->
+  <table class="events-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Location</th>
+      <th>Date</th>
+      <th>Ticket</th>
+      <th>Goal / Progress</th>
+      <th>Org</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let e of events">
+      <td>{{ e.event_id }}</td>
+      <td>{{ e.title }}</td>
+      <td>{{ e.location }}</td>
+      <td>{{ e.event_date | date: 'short' }}</td>
+      <td>{{ e.ticket_price | number:'1.2-2' }}</td>
+      <td>{{ e.charity_goal | number:'1.2-2' }} / {{ e.current_progress | number:'1.2-2' }}</td>
+      <td>{{ e.org_name }}</td>
+      <td>{{ e.category_name }}</td>
+      <td>
+        <button (click)="openEditModal(e)" class="btn" style="margin-right: 10px;">Edit</button>
+        <button (click)="deleteEvent(e.event_id)" class="btn delete-btn">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>{{ modalMode === 'add' ? 'Add Event' : 'Edit Event' }}</h3>
+
+    <div class="modal-body">
+      <!-- 标题 -->
+      <div class="modal-input">
+        <label>Title:</label>
+        <input type="text" [(ngModel)]="currentEvent.title" placeholder="Enter event title" />
+      </div>
+
+      <!-- 地点 -->
+      <div class="modal-input">
+        <label>Location:</label>
+        <input type="text" [(ngModel)]="currentEvent.location" placeholder="Enter event location" />
+      </div>
+
+      <!-- 日期 -->
+      <div class="modal-input">
+        <label>Event Date:</label>
+        <input type="datetime-local" [(ngModel)]="currentEvent.event_date" />
+      </div>
+
+      <!-- 票价 -->
+      <div class="modal-input">
+        <label>Ticket Price (AUD):</label>
+        <input type="number" step="0.01" [(ngModel)]="currentEvent.ticket_price" />
+      </div>
+
+      <!-- 是否激活 -->
+      <div class="modal-input">
+        <label>Active:</label>
+        <select [(ngModel)]="currentEvent.is_active">
+          <option [ngValue]="1">Yes</option>
+          <option [ngValue]="0">No</option>
+        </select>
+      </div>
+
+      <!-- 募捐目标 & 当前进度 -->
+      <div class="modal-input">
+        <label>Charity Goal:</label>
+        <input type="number" step="0.01" [(ngModel)]="currentEvent.charity_goal" />
+      </div>
+
+      <div class="modal-input">
+        <label>Current Progress:</label>
+        <input type="number" step="0.01" [(ngModel)]="currentEvent.current_progress" />
+      </div>
+
+      <!-- 组织与分类下拉 -->
+      <div class="modal-input">
+        <label>Organisation:</label>
+        <select [(ngModel)]="currentEvent.org_id">
+          <option *ngFor="let o of organisations" [ngValue]="o.org_id">{{ o.org_name }}</option>
+        </select>
+      </div>
+
+      <div class="modal-input">
+        <label>Category:</label>
+        <select [(ngModel)]="currentEvent.category_id">
+          <option *ngFor="let c of categories" [ngValue]="c.category_id">{{ c.category_name }}</option>
+        </select>
+      </div>
+
+      <!-- 纬度经度 -->
+      <div class="modal-input">
+        <label>Latitude:</label>
+        <input type="number" step="0.000001" [(ngModel)]="currentEvent.latitude" />
+      </div>
+
+      <div class="modal-input">
+        <label>Longitude:</label>
+        <input type="number" step="0.000001" [(ngModel)]="currentEvent.longitude" />
+      </div>
+
+      <!-- 描述 -->
+      <div class="modal-input">
+        <label>Description:</label>
+        <textarea [(ngModel)]="currentEvent.description" placeholder="Enter description"></textarea>
+      </div>
+    </div>
+
+    <!-- 错误信息 -->
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="modal-actions">
+      <button class="btn add-btn" (click)="saveEvent()">Save</button>
+      <button class="btn" (click)="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <app-footer></app-footer>

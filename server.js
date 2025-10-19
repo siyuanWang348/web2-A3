@@ -44,6 +44,22 @@ app.get('/api/events', (req, res) => {
   handleQuery(res, eventQuery);
 });
 
+// 管理活动列表接口 - 返回全部的活动
+app.get('/api/events/all', (req, res) => {
+  const eventQuery = `
+    SELECT 
+      e.*,
+      c.category_name, 
+      o.org_name
+    FROM charity_events e
+    INNER JOIN event_categories c ON e.category_id = c.category_id
+    INNER JOIN charity_organizations o ON e.org_id = o.org_id
+    ORDER BY e.event_date ASC
+  `;
+
+  handleQuery(res, eventQuery);
+});
+
 // 2. 活动详情接口 - 根据ID获取完整信息
 app.get('/api/events/:id', (req, res) => {
   const eventId = req.params.id;
@@ -107,6 +123,11 @@ app.get('/api/events/:id', (req, res) => {
 // 3. 活动类别列表接口
 app.get('/api/categories', (req, res) => {
   handleQuery(res, 'SELECT * FROM event_categories ORDER BY category_name');
+});
+
+// 活动组织列表接口
+app.get('/api/organizations', (req, res) => {
+  handleQuery(res, 'SELECT * FROM charity_organizations ORDER BY org_name');
 });
 
 // 4. 活动搜索接口 - 支持多条件筛选
