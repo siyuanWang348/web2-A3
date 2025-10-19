@@ -285,6 +285,115 @@ app.delete('/api/categories/:id', (req, res) => {
   });
 });
 
+
+// 添加活动接口
+app.post('/api/events', (req, res) => {
+  const {title, description, event_date, location, ticket_price, is_active, charity_goal, current_progress, org_id, category_id, latitude, longitude} = req.body;
+
+  // 基本验证
+  if (!title || !event_date || !location || !charity_goal || !org_id || !category_id) {
+    return res.status(400).json({
+      error: 'Missing required fields: title, event_date, location, charity_goal, org_id, category_id.'
+    });
+  }
+
+  const insertQuery = `
+    INSERT INTO charity_events (
+      title, description, event_date, location, ticket_price, is_active,
+      charity_goal, current_progress, org_id, category_id, latitude, longitude
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const params = [title, description, event_date, location, ticket_price, is_active, charity_goal, current_progress || 0.00, org_id, category_id, latitude, longitude];
+
+  db.query(insertQuery, params, (err, results) => {
+    if (err) {
+      console.error('添加活动失败:', err);
+      return res.status(500).json({ error: 'Failed to add event.' });
+    }
+    res.json({
+      success: true,
+      message: 'Event added successfully.',
+      event_id: results.insertId
+    });
+  });
+});
+
+// 更新活动接口
+app.put('/api/events/:id', (req, res) => {
+  const eventId = req.params.id;
+  const {title, description, event_date, location, ticket_price, is_active, charity_goal, current_progress, org_id, category_id, latitude, longitude} = req.body;
+
+  // 基本验证
+  if (!title || !event_date || !location || !charity_goal) {
+    return res.status(400).json({
+      error: 'Missing required fields: title, event_date, location, charity_goal.'
+    });
+  }
+
+  const updateQuery = `
+    UPDATE charity_events
+    SET title = ?, description = ?, event_date = ?, location = ?, ticket_price = ?, is_active = ?, charity_goal = ?, current_progress = ?, org_id = ?, category_id = ?, latitude = ?, longitude = ?
+    WHERE event_id = ?
+  `;
+
+  const params = [title, description, event_date, location, ticket_price, is_active, charity_goal, current_progress, org_id, category_id, latitude, longitude, eventId];
+
+  db.query(updateQuery, params, (err, results) => {
+    if (err) {
+      console.error('更新活动失败:', err);
+      return res.status(500).json({ error: 'Failed to update event.' });
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: 'Event not found.' });
+    }
+
+    res.json({
+      success: true,
+      message: 'Event updated successfully.'
+    });
+  });
+});
+
+
+// 删除活动接口
+app.delete('/api/events/:id', (req, res) => {
+  const eventId = req.params.id;
+
+  // 先检查是否存在注册记录
+  const checkQuery = `SELECT COUNT(*) AS regCount FROM event_registrations WHERE event_id = ?`;
+
+  db.query(checkQuery, [eventId], (checkErr, checkResults) => {
+    if (checkErr) {
+      console.error('检查注册记录失败:', checkErr);
+      return res.status(500).json({ error: 'Failed to check registrations.' });
+    }
+
+    const regCount = checkResults[0].regCount;
+    if (regCount > 0) {
+      return res.status(400).json({
+        error: 'Cannot delete event that already has registrations.'
+      });
+    }
+
+    // 若没有注册记录，则执行删除
+    const deleteQuery = `DELETE FROM charity_events WHERE event_id = ?`;
+
+    db.query(deleteQuery, [eventId], (delErr, delResults) => {
+      if (delErr) {
+        console.error('删除活动失败:', delErr);
+        return res.status(500).json({ error: 'Failed to delete event.' });
+      }
+      res.json({
+        success: true,
+        message: 'Event deleted successfully.'
+      });
+    });
+  });
+});
+
 // 启动服务器
 app.listen(serverPort, () => {
   console.log(`服务器已启动，运行在 http://localhost:${serverPort}`);
