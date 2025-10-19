@@ -26,6 +26,9 @@ body {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -249,7 +252,7 @@ h1, h2 {
 /* 活动卡片网格布局（宽度与内容区匹配） */
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 1.5rem;
   justify-items: center;
 }
