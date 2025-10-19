@@ -394,6 +394,47 @@ app.delete('/api/events/:id', (req, res) => {
   });
 });
 
+
+// 获取所有注册记录接口
+app.get('/api/registrations', (req, res) => {
+  const query = `
+    SELECT 
+      r.registration_id,
+      r.event_id,
+      e.title AS event_title,
+      r.user_name,
+      r.user_email,
+      r.user_phone,
+      r.tickets,
+      r.notes,
+      r.registered_at
+    FROM event_registrations r
+    LEFT JOIN charity_events e ON r.event_id = e.event_id
+    ORDER BY r.registered_at DESC
+  `;
+
+  handleQuery(res, query);
+});
+
+
+// 删除注册记录接口
+app.delete('/api/registrations/:id', (req, res) => {
+  const registrationId = req.params.id;
+
+  const deleteQuery = `DELETE FROM event_registrations WHERE registration_id = ?`;
+
+  db.query(deleteQuery, [registrationId], (err, results) => {
+    if (err) {
+      console.error('删除注册记录失败:', err);
+      return res.status(500).json({ error: 'Failed to delete registration.' });
+    }
+    res.json({
+      success: true,
+      message: 'Registration deleted successfully.'
+    });
+  });
+});
+
 // 启动服务器
 app.listen(serverPort, () => {
   console.log(`服务器已启动，运行在 http://localhost:${serverPort}`);
